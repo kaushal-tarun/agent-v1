@@ -1,9 +1,13 @@
 from dotenv import load_dotenv
+from tools.calculator import calculator
 from google import genai
 import os
 
 class Agent:
     def __init__(self):
+        with open("prompts/system_prompt.txt", "r") as file:
+            self.system_prompt = file.read()
+
         load_dotenv()
 
         self.client = genai.Client(
@@ -16,7 +20,13 @@ class Agent:
 
     def chat(self, message):
         try:
-            response = self.chat_session.send_message(message)
+            prompt = f"""
+    {self.system_prompt}
+
+    User: {message}
+    """
+
+            response = self.chat_session.send_message(prompt)
 
             return response.text
 
