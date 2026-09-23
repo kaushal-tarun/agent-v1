@@ -28,7 +28,16 @@ class Agent:
 
             response = self.chat_session.send_message(prompt)
 
-            return response.text
+            result = response.text
+
+            if result.startswith("CALCULATOR:"):
+                expression = result.replace("CALCULATOR:", "").strip()
+
+                answer = calculator(expression)
+
+                return f"Result: {answer}"
+
+            return result
 
         except Exception as e:
             return f"Error: {e}"
