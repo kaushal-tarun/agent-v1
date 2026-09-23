@@ -11,9 +11,13 @@ class Agent:
         )
 
     def chat(self, message):
-        response = self.client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=message
-        )
+        try:
+            response = self.client.models.generate_content(
+                model="gemini-3.6-flash",
+                contents=message
+            )
 
-        return response.text
+            return response.text
+
+        except Exception as e:
+            return f"Error: {e}"

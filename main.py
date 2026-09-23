@@ -2,6 +2,12 @@ from agent import Agent
 
 agent = Agent()
 
-response = agent.chat("Say hello in one sentence.")
+while True:
+    user_input = input("You: ")
 
-print(response)
+    if user_input.lower() in ["exit", "quit"]:
+        break
+
+    response = agent.chat(user_input)
+
+    print(f"Agent: {response}")
